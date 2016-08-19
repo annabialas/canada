@@ -6,7 +6,15 @@
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 <style>
-	.feature { 
+
+  .path {
+    fill: #E1E1E1;
+    stroke: #E1E1E1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .feature { 
     cursor: pointer; 
     fill: #a897bf; 
     opacity: .7; 
@@ -14,7 +22,11 @@
 
   .active { fill: #FF0000; }
 
-	.path:hover { fill-opacity: .7; }
+  .number{
+    fill:#FFF;
+    font-size:16;
+    font-family: 'Montserrat';
+  }
 
   div.tooltip {   
     position: absolute;           
@@ -26,6 +38,7 @@
     border: 0px;        
     pointer-events: none;         
   }
+  
 </style>
 </head>
 <body>
@@ -58,8 +71,8 @@ var path = d3.geo.path()
 
 var div = d3.select("body")
         .append("div")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
+        .attr("class", "tooltip");               
+        
 
 	
 d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", function(canada) {
@@ -70,8 +83,6 @@ d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", f
 		.append("path")
 		.attr("d", path)
 		.attr("class", "path")
-		.style("fill", "#c2c2c2")
-		.style("stroke", "#fff");
 
 	d3.csv("companies.csv", function(data) {
 
@@ -87,7 +98,7 @@ d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", f
                   return projection([d.LON, d.LAT])[1];
               })
               .attr("r", function(d) {
-                  return Math.sqrt(d.PNUMBER)*10;
+                  return Math.sqrt(d.PNUMBER)*15;
               })
 
 
@@ -108,7 +119,7 @@ d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", f
                       .delay(0)            
                       .duration(750)
                       .attr("r", function(d) {
-                          return Math.sqrt(d.PNUMBER) * 15;
+                          return Math.sqrt(d.PNUMBER) * 20;
                       })
                   })
   
@@ -120,7 +131,7 @@ d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", f
                       .transition()
                       .duration(750)
                       .attr("r", function(d) {
-                          return Math.sqrt(d.PNUMBER) * 10;
+                          return Math.sqrt(d.PNUMBER) * 15;
                       }) 
               })
 
@@ -143,13 +154,7 @@ d3.json("https://raw.githubusercontent.com/mdgnkm/SIG-Map/master/canada.json", f
                     else { return "-.6em" }
                  })
                  .text(function(d) { return d.PNUMBER; })
-                 .style("fill", "rgb(255,255,255")
-                 .style("font-size", function(d){
-                    if (d.PNUMBER < 4) { return 10 }
-                    else if (d.PNUMBER == 6) { return 16 }
-                    else { return 20 }
-                 })
-                 .style("font-family", "Montserrat")
+                 .attr("class", "number")
 
               function clicked() {
                     if (active.node() === this) return reset();
