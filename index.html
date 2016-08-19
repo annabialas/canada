@@ -46,7 +46,7 @@ var svg = d3.select("body")
       // }))
       // .append("g");
 	
-var projection = d3.geo.azimuthalEqualArea()
+var projection = d3.geo.mercator()
 	.rotate([100, -45])
 	.center([5, 20])
 	.scale(800)
