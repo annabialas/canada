@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 <style>
@@ -46,7 +46,7 @@ var svg = d3.select("body")
       // }))
       // .append("g");
 	
-var projection = d3.geo.mercator()
+var projection = d3.geo.azimuthalEqualArea()
 	.rotate([100, -45])
 	.center([5, 20])
 	.scale(800)
